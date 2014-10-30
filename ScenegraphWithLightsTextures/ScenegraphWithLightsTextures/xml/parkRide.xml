@@ -1,0 +1,114 @@
+<scene>
+	<instance name="sphere" path="models/sphere" />
+	<instance name="box" path="models/box" />
+	<instance name="cylinder" path="models/cylinder" />
+	<instance name="cone" path="models/cone" />
+	
+	<transform name="whole-ride">
+		<!-- transform for whole model -->
+		<set>
+			<scale>2 2 2</scale>
+		</set>
+	
+			<transform name="car-transform">
+			<set>
+			</set>
+			<group BB="true" name="car">
+			
+				<group>
+					<transform name="floor">
+						<set>
+							<scale>30 2 20</scale>
+						</set>
+						<object BB="true" instanceof="box">
+								<material>
+									<color>0 0 1</color>
+								</material>		
+						</object>			
+					</transform>	
+				</group>
+				
+				<transform name="seat-transform">
+					<set>
+					</set>
+					<group name="seat-groups">
+				
+						<group name="frontRight">
+							<transform name="frontRightSeat">
+								<set>
+									<translate>5 8 5 </translate>
+								</set>
+								<group name="seat">
+									<transform name="back">
+										<set>
+											<scale>1 8 6</scale>
+										</set>
+										<object BB="true" instanceof="box">
+												<material>
+													<color>1 0 0</color>
+												</material>		
+										</object>
+									</transform>
+									
+									<transform name="bottom">
+										<set>
+											<scale>5 1 6</scale>
+											<translate>3 -3.5 0</translate>
+										</set>
+										<object instanceof="box">
+												<material>
+													<color>1 0 0</color>
+												</material>		
+										</object>
+									</transform>
+									
+									<transform name="attachment">
+										<set>
+											<scale>2 3 2</scale>
+											<translate>3 -7 0</translate>
+										</set>
+										<object instanceof="cylinder">
+												<material>
+													<color>0 1 0</color>
+												</material>		
+										</object>
+									</transform>
+								</group>
+							</transform>
+						</group>
+						
+						
+						<group name="frontLeft">
+							<transform name="frontLeftSeat">
+								<set>
+									<translate>5 8 -5 </translate>
+								</set>
+								<group copyof="seat"/>
+							</transform>
+						</group>
+						
+						<group name="backLeft">
+							<transform name="backLeftSeat">
+								<set>
+									<translate>-10 8 -5 </translate>
+								</set>
+								<group copyof="seat"/>
+							</transform>
+						</group>
+						
+						<group name="backRight">
+							<transform name="backRightSeat">
+								<set>
+									<translate>-10 8 5 </translate>
+								</set>
+								<group copyof="seat"/>
+							</transform>
+						</group>
+					</group>
+				</transform>
+				
+			</group>
+		</transform>
+		
+	</transform>
+</scene>
