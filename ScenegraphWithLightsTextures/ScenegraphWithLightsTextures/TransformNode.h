@@ -177,8 +177,8 @@ public:
 	
 		for(Light l:tLights){
 			
-			l.setPosition(modelView.top() * transform *animation_transform*l.getPosition());
-	//		l.setSpotDirection(transform *animation_transform * l.getSpotDirection());
+			l.setPosition(transform *animation_transform*l.getPosition());
+		//	l.setSpotDirection(transform *animation_transform * l.getSpotDirection());
 			vLights.push_back(l);
 		}
 		for( Light l:lights){

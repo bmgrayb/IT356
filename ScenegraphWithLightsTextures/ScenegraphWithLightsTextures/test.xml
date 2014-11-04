@@ -1,0 +1,36 @@
+<scene>
+	<instance name="sphere" path="models/sphere" />
+	<instance name="box" path="models/box" />
+	<instance name="cylinder" path="models/cylinder" />
+	<instance name="cone" path="models/cone" />
+	<transform>
+		<set>
+			<scale> 10 10 10 </scale> <!-- humanoid of height 72 -->
+			<translate> 0 0 0 </translate>
+		</set>
+		<object instanceof="sphere">
+		<material>
+			<ambient>.1 .2 .3</ambient>
+			<diffuse>.5 .5 .5</diffuse>
+			<specular>.3 .3 .3</specular>
+			<shininess>10</shininess>
+			<!--the following four will be relevant in ray tracer -->
+			<absorption>0.5 </absorption>
+			<reflection>0.1</reflection>
+			<transparency>0.4</transparency>
+			<refractive>1.2</refractive>
+		</material>
+		<!-- light added to object node -->
+		<light>
+			<ambient>.2 0.2 0.2</ambient>
+			<diffuse>.5 .5 0.5</diffuse>
+			<specular>0.8 0.8 0.8</specular>
+			<position>50 50 50 </position>
+			<direction>0 0 0 </direction>
+			<spotangle>90</spotangle>
+			<spotdirection>1 0 0 </spotdirection> 
+		</light>
+
+	</object>	
+	</transform>
+	</scene>

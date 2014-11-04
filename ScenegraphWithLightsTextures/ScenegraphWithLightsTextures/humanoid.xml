@@ -63,7 +63,7 @@
 										</material>
 										<!-- light added to object node -->
 										<light>
-											<ambient>0.1 0.1 0.8</ambient>
+											<ambient>0.8 0.8 0.8</ambient>
 											<diffuse>0 0 0.8</diffuse>
 											<specular>0.8 0.8 0.8</specular>
 											<position>100 100 100 </position>

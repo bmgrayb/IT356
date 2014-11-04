@@ -44,11 +44,14 @@ public:
             //set the color for all vertices to be drawn for this object
      //       glUniform3fv(scenegraph->objectColorLocation,1,glm::value_ptr(color));
 			a = glGetError();
+
 			glUniformMatrix4fv(scenegraph->modelviewLocation,1,GL_FALSE,glm::value_ptr(modelView.top()));
+			glUniformMatrix4fv(scenegraph->normalMatrixLocation,1,GL_FALSE,glm::value_ptr(glm::transpose(glm::inverse(modelView.top()))));
 			glUniform3fv(scenegraph->mat_ambientLocation,1,glm::value_ptr(material.getAmbient()));
 			glUniform3fv(scenegraph->mat_diffuseLocation,1,glm::value_ptr(material.getDiffuse()));
 			glUniform3fv(scenegraph->mat_specularLocation,1,glm::value_ptr(material.getSpecular()));
-			glUniform1i(scenegraph->mat_shininessLocation,material.getShininess());
+			glUniform1f(scenegraph->mat_shininessLocation,material.getShininess());
+			
 			a = glGetError();
 			instanceOf->draw();        
 			a = glGetError();
@@ -112,7 +115,7 @@ public:
 	}
 	virtual void returnLights(vector<Light>& vLights, stack<glm::mat4>& modelView){
 		for(Light l: lights){
-			l.setPosition(modelView.top() * l.getPosition());
+			l.setPosition( modelView.top()*l.getPosition());
 			 vLights.push_back(l);
 		}
 	}

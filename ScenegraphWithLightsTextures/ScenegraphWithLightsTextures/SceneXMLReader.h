@@ -613,7 +613,7 @@ private:
 				glm::vec3 dir;
 
 				s >> dir[0] >> dir[1] >> dir[2];
-				l.setDirection(dir);
+			//	l.setDirection(dir);
 			}
 			else if (strcmp(light_prop->name(),"spotdirection")==0)
 			{

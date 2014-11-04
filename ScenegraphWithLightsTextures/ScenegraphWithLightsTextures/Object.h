@@ -103,7 +103,8 @@ public:
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[IndexBuffer]);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)*this->mesh.getTriangles().size(), &this->mesh.getTriangles()[0], GL_STATIC_DRAW);
 
-
+		
+		
 		/*
 			*Specify all the vertex attribute pointers, i.e. tell OpenGL how to organize data according to attributes rather than vertices
 			*/
@@ -128,6 +129,7 @@ public:
 			*so at this point, this VAO has two VBOs and two enabled VertexAttribPointers.
 			* It is going to remember all of that!
 			*/
+		
 		glBindBuffer(GL_ARRAY_BUFFER,0);
 		glBindVertexArray(0);
 	}
@@ -163,7 +165,9 @@ public:
 
 	
 
-	
+	vector<unsigned int> getNormalData(){
+		return mesh.getTriangleNormalIndices();
+	}
 
 	
 	glm::vec4 getMinimumWorldBounds()
