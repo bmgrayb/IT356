@@ -3,8 +3,8 @@
 	<instance name="box" path="models/box" />
 	<instance name="cylinder" path="models/cylinder" />
 	<instance name="cone" path="models/cone" />
-	<image name="checkerboard" path="checkerboard.png" />
-	<image name="earthmap" path="earthmap.png" />
+<!--	<image name="checkerboard" path="checkerboard.png" />  
+	<image name="earthmap" path="earthmap.png" /> -->
 	
 	
 	
@@ -15,24 +15,24 @@
 		</set>
 		<!-- light added to transform node -->
 		<light>
-			<ambient>0.8 0.8 0.8</ambient>
+		<!--	<ambient>0.1 1 0.8</ambient>
 			<diffuse>0.8 0.8 0.8</diffuse>
 			<specular>0.8 0.8 0.8</specular>
 			<position>100 100 100 </position>
 			<direction>0 1 0 </direction>
 			<spotangle>90</spotangle>
-			<spotdirection>1 0 0 </spotdirection>
+			<spotdirection>1 0 0 </spotdirection> -->
 		</light>
 		<group name="unit-height-humanoid">
 			<!-- light added to group node -->
 			<light>
-				<ambient>0.8 0.8 0.8</ambient>
+			<!--	<ambient>0.8 0.8 0.8</ambient>
 				<diffuse>0.8 0.8 0.8</diffuse>
 				<specular>0.8 0.8 0.8</specular>
 				<position>100 100 100 </position>
 				<direction>0 1 0 </direction>
 				<spotangle>90</spotangle>
-				<spotdirection>1 0 0 </spotdirection>
+				<spotdirection>1 0 0 </spotdirection> -->
 			</light>
 			<transform> <!-- scale humanoid down to height 1 so that height can be adjusted easily above -->
 				<set>
@@ -40,7 +40,7 @@
 				</set>
 				<group>
 					<group name="lowerbody">
-						<transform name="leftleg"> <!-- move leg into correct position -->
+						<transform name="leftleg" drawBB="true"> <!-- move leg into correct position -->
 							<set>
 								<translate>5 0 0</translate>
 							</set>
@@ -51,10 +51,10 @@
 									</set>
 									<object instanceof="cylinder">
 										<material>
-											<ambient>1 0 0</ambient>
-											<diffuse>1 0 0</diffuse>
-											<specular>1 0 0</specular>
-											<shininess>10</shininess>
+											<ambient>.5 .5 .5</ambient>
+											<diffuse>.5 .5 .5</diffuse>
+											<specular>.5 0 0</specular>
+											<shininess>1000</shininess>
 											<!--the following four will be relevant in ray tracer -->
 											<absorption>0.5 </absorption>
 											<reflection>0.1</reflection>
@@ -63,13 +63,13 @@
 										</material>
 										<!-- light added to object node -->
 										<light>
-											<ambient>0.8 0.8 0.8</ambient>
-											<diffuse>0.8 0.8 0.8</diffuse>
+											<ambient>0.1 0.1 0.8</ambient>
+											<diffuse>0 0 0.8</diffuse>
 											<specular>0.8 0.8 0.8</specular>
 											<position>100 100 100 </position>
 											<direction>0 1 0 </direction>
 											<spotangle>90</spotangle>
-											<spotdirection>1 0 0 </spotdirection>
+											<spotdirection>1 0 0 </spotdirection> 
 										</light>
 									</object>			
 								</transform>
@@ -111,7 +111,7 @@
 										<set>
 											<scale>2 2 2 </scale>											
 										</set>
-										<object instanceof="sphere" texture="checkerboard">
+										<object instanceof="sphere" >
 											<material>
 												<color>0 1 0</color>
 											</material>

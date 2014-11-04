@@ -66,7 +66,12 @@ void Light::setPosition(glm::vec3 pos)
 {
     position = glm::vec4(pos,1.0f);
 }
+void Light::setPosition(glm::vec4 pos)
+{
+	pos.w =0.0;
+    position = pos;
 
+}
 void Light::setDirection(glm::vec3 dir)
 {
     position = glm::vec4(dir,0.0f);

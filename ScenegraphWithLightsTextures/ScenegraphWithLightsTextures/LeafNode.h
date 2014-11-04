@@ -40,12 +40,15 @@ public:
         if (instanceOf!=NULL)
 		{
 			 //get the color
-            glm::vec4 color = material.getAmbient();
-
+           
             //set the color for all vertices to be drawn for this object
-            glUniform3fv(scenegraph->objectColorLocation,1,glm::value_ptr(color));
+     //       glUniform3fv(scenegraph->objectColorLocation,1,glm::value_ptr(color));
 			a = glGetError();
 			glUniformMatrix4fv(scenegraph->modelviewLocation,1,GL_FALSE,glm::value_ptr(modelView.top()));
+			glUniform3fv(scenegraph->mat_ambientLocation,1,glm::value_ptr(material.getAmbient()));
+			glUniform3fv(scenegraph->mat_diffuseLocation,1,glm::value_ptr(material.getDiffuse()));
+			glUniform3fv(scenegraph->mat_specularLocation,1,glm::value_ptr(material.getSpecular()));
+			glUniform1i(scenegraph->mat_shininessLocation,material.getShininess());
 			a = glGetError();
 			instanceOf->draw();        
 			a = glGetError();
@@ -56,6 +59,7 @@ public:
 	{
 		if (bbDraw)
 		{
+			GLuint a;
 			glm::mat4 bbTransform;
 
 			bbTransform = glm::translate(glm::mat4(1.0),0.5f*(minBounds+maxBounds)) * glm::scale(glm::mat4(1.0),maxBounds-minBounds);
@@ -63,6 +67,7 @@ public:
 			//set the color for all vertices to be drawn for this object
 			glUniform3fv(scenegraph->objectColorLocation,1,glm::value_ptr(color));
 			glUniformMatrix4fv(scenegraph->modelviewLocation,1,GL_FALSE,glm::value_ptr(modelView.top() * bbTransform));
+			a = glGetError();
 			scenegraph->getInstance("box")->draw();        		
 		}
 	}
@@ -97,6 +102,19 @@ public:
 	void setTexture(Texture *tex)
 	{
 		cout << "Texture set to " << tex->getName() << endl;
+	}
+	void addLight(const Light &l)
+	{
+		//cout << "Light added in node " << name << endl;
+		
+		 lights.push_back(l);
+		
+	}
+	virtual void returnLights(vector<Light>& vLights, stack<glm::mat4>& modelView){
+		for(Light l: lights){
+			l.setPosition(modelView.top() * l.getPosition());
+			 vLights.push_back(l);
+		}
 	}
 
 protected:

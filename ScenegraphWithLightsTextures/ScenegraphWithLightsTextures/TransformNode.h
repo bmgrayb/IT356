@@ -171,6 +171,24 @@ public:
         return animation_transform;
     }
 
+	virtual  void returnLights(vector<Light>& vLights,stack<glm::mat4>& modelView){
+		vector<Light> tLights;
+		child->returnLights(tLights,modelView);
+	
+		for(Light l:tLights){
+			
+			l.setPosition(modelView.top() * transform *animation_transform*l.getPosition());
+	//		l.setSpotDirection(transform *animation_transform * l.getSpotDirection());
+			vLights.push_back(l);
+		}
+		for( Light l:lights){
+			
+			l.setPosition(modelView.top()*transform *animation_transform*l.getPosition());
+		//	l.setSpotDirection(transform *animation_transform * l.getSpotDirection());
+			vLights.push_back(l);
+		}
+	}
+
 protected:
 	glm::mat4 transform,animation_transform;
 	Node *child;

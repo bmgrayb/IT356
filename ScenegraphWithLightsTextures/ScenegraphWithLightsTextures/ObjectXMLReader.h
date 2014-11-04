@@ -38,6 +38,8 @@ public:
 		try 
 		{
             xercesc::XMLPlatformUtils::Initialize();
+
+
         }
         catch (const xercesc::XMLException& toCatch) 
 		{

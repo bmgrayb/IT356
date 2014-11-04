@@ -1,0 +1,224 @@
+<scene>
+	<instance name="sphere" path="models/sphere" />
+	<instance name="box" path="models/box" />
+	<instance name="cylinder" path="models/cylinder" />
+	<instance name="cone" path="models/cone" />
+	
+	<transform>
+		<set>
+			<scale> 75 75 75 </scale> <!-- humanoid of height 72 -->
+			<translate> 0 -36 0 </translate>
+		</set>
+		<group name="john" BB="true">
+			<transform name="ride" > <!-- scale humanoid down to height 1 so that height can be adjusted easily above -->
+				<set>
+					<scale> 0.0125 0.0125 0.0125</scale>
+				</set>
+				
+			
+				<group>
+				<group BB="true">
+				<transform>
+					<set>
+							<rotate> 90 0 0 1 </rotate>
+							<translate>21 0 0 </translate>
+							<scale> 2 2 2 </scale>
+					</set>
+					<group >
+					<transform name="chair">
+					<set>
+					</set>
+					<group>
+					<transform name="seat">
+						<set>
+							<scale> 2 2 2 </scale>
+							<translate>0 0 0 </translate>
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					<transform name= "back">
+						<set>
+						
+							<scale> 2 2 0 </scale>
+							<translate>2 0 -1 </translate>
+							
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					</group>
+				</transform>
+				</group>
+				</transform>
+				</group>
+				<group>
+				<transform >
+					<set>
+							<rotate> 90 0 0 1 </rotate>
+							<translate>0 0 -21 </translate>
+							<scale> 2 2 2 </scale>
+					</set>
+					<group>
+					<transform name="chair2">
+					<set>
+					</set>
+					<group>
+					<transform name="seat">
+						<set>
+							<scale> 2 2 2 </scale>
+							<translate>0 0 0 </translate>
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					<transform name= "back">
+						<set>
+						
+							<scale> 2 2 0 </scale>
+							<translate>2 0 -1 </translate>
+							
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					</group>
+				</transform>
+				</group>
+				</transform>
+				</group>
+				<group >
+				<transform >
+					<set>
+							<rotate> 90 0 0 1 </rotate>
+							<translate>0 0 21 </translate>
+							<scale> 2 2 2 </scale>
+					</set>
+					<group>
+					<transform name="chair3">
+					<set>
+					</set>
+					<group>
+					<transform name="seat">
+						<set>
+							<scale> 2 2 2 </scale>
+							<translate>0 0 0 </translate>
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					<transform name= "back">
+						<set>
+						
+							<scale> 2 2 0 </scale>
+							<translate>2 0 -1 </translate>
+							
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					</group>
+					</transform>
+					</group>
+				</transform>
+				</group>
+				<group BB = "true">
+				<transform>
+					<set>
+							<rotate> 90 0 0 1 </rotate>
+							<translate>-21 0 0 </translate>
+							<scale> 2 2 2 </scale>
+					</set>
+					<group>
+					<transform name="chair4">
+					<set>
+					</set>
+					<group>
+					<transform name="seat">
+						<set>
+							<scale> 2 2 2 </scale>
+							<translate>0 0 0 </translate>
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					<transform name= "back" >
+						<set>
+						
+							<scale> 2 2 0 </scale>
+							<translate>2 0 -1 </translate>
+							
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					</group>
+				</transform>
+				</group>
+				</transform>
+				</group>
+				<group name = "base" BB = "true" >
+					<transform name = "xbase">
+					<set>
+					<translate>0 -4.8 0</translate>
+					</set>
+					<group>
+					<group>
+						<transform>
+							<set>
+							<scale> 89 5 5 </scale>
+							</set>
+							<object instanceof="box">
+							<material>
+										<color>1 1 0</color>
+								</material>
+							</object>
+						</transform>
+					</group>
+					<group>
+					<transform name = "zbase">
+							<set>
+							<scale>5 5 89 </scale>
+							</set>
+							<object instanceof="box">
+							<material>
+										<color>1 1 0</color>
+								</material>
+							</object>
+						</transform>
+					</group>
+					
+				</group>
+				</transform>
+				</group>
+				</group>
+			</transform>
+			
+		
+		</group>
+	</transform>
+</scene>

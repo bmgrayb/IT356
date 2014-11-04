@@ -187,19 +187,19 @@ void display(sf::RenderWindow *window)
 
 	if (frames>500)
 	{
-		sf::Time t = sfclock.getElapsedTime();
-		frame_rate = frames/t.asSeconds();
+	//	sf::Time t = sfclock.getElapsedTime();
+	//	frame_rate = frames/t.asSeconds();
 		frames = 0;
 	}
 	else
 	{
 		frames++;
 	}
-	stringstream str;
+	//stringstream str;
 
-	str << "Frame rate " << frame_rate;
+//	str << "Frame rate " << frame_rate;
 	// Draw some text on top of our OpenGL object
-	drawText(window,str.str(),window->getSize().x,20);
+	//drawText(window,str.str(),window->getSize().x,20);
     
 	
 	// Finally, display the rendered frame on screen
@@ -232,6 +232,7 @@ void init(string& filename)
     v.getGLSLVersion(&major,&minor);
     cout << "GLSL version supported : "<<major<<"."<<minor << endl;
     //delegate to our view class to do all the initializing
+	
 	v.initialize();
 	v.openFile(filename);
 

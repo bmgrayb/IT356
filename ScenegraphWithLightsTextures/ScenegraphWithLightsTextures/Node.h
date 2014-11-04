@@ -9,7 +9,6 @@ using namespace std;
 #include "Light.h"
 #include <glm/glm.hpp>
 #include <vector>
-
 class Scenegraph;
 
 class Node
@@ -19,8 +18,7 @@ protected:
     Scenegraph *scenegraph;
 	bool bbDraw;
 	glm::vec3 minBounds,maxBounds;
-	vector<Light> lightVec;
-
+	vector<Light> lights;
 public:
     Node(Scenegraph *graph,string name="")
     {
@@ -41,6 +39,7 @@ public:
 
 		return NULL;
 	}
+
 
 
     virtual void draw(stack<glm::mat4>& modelView)=0;
@@ -74,10 +73,18 @@ public:
 
 	void addLight(const Light& l)
 	{
+		lights.push_back(l);
 		cout << "Light added in node " << name << endl;
-		lightVec.push_back(l);
+		
+	}
+
+	virtual void returnLights(vector<Light>& vLights,stack<glm::mat4>& modelView){
 
 	}
+	vector<Light> getLights(){
+		return lights;
+	}
+
 
 protected:
 	Node *parent;

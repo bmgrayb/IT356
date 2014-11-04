@@ -128,6 +128,20 @@ public:
     {
         return children;
     }
+
+	virtual  void returnLights(vector<Light>& vLights,stack<glm::mat4>& modelView)
+	{
+			
+		for (int i=0;i<lights.size();i++)
+        {
+			lights[i].setPosition(modelView.top() * lights[i].getPosition());
+			vLights.push_back(lights[i]);
+		}
+		for(int j=0;j<children.size();j++) {
+			children[j]->returnLights(vLights,modelView);
+		}
+        
+	}
 };
 
 #endif // GROUP_H

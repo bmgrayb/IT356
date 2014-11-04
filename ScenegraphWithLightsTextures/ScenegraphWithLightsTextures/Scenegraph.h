@@ -18,7 +18,15 @@ class Scenegraph
     friend class LeafNode;
 	friend class GroupNode;
 	friend class TransformNode;
+		typedef struct
+    {
+        GLint positionLocation;
+        GLint ambientLocation;
+        GLint diffuseLocation;
+        GLint specularLocation;
+    } LightLocation;
 public:
+
     Scenegraph();
     ~Scenegraph();
     void makeScenegraph(Node *root);
@@ -33,6 +41,7 @@ public:
 	void addTexture(Texture *tex)
 	{
 		cout << "Texture " << tex->getName() << " added" << endl;
+		textures.push_back(tex);
 	}
 
 	void animate(float t);
@@ -55,15 +64,22 @@ public:
 		}
 	}
 
-	Texture *getTexture(string name)
+/*	Texture *getTexture(string name)
 	{
 		cout << "Texture " << name << " looked up" << endl;
-	}
+	}*/
 
 private:
     Node *root;
+	vector<Texture *> textures;
 	vector<Object *> instances;
-	GLint objectColorLocation,modelviewLocation;
+	vector<Light> lights;
+	vector<LightLocation> lightlocation;
+	GLint objectColorLocation;
+	GLint projectionLocation,modelviewLocation,normalMatrixLocation;
+    GLint numLightsLocation;
+    GLint mat_ambientLocation,mat_diffuseLocation,mat_specularLocation,mat_shininessLocation;
+	GLint program;
 };
 
 #endif // SCENEGRAPH_H
