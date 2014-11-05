@@ -7,22 +7,55 @@
 	<transform name="whole-ride">
 		<!-- transform for whole model -->
 		<set>
-			<scale>2 2 2</scale>
+			<scale>.5 .5 .5</scale>
 		</set>
+	
+		<material>
+			<ambient>.1 .2 .3</ambient>
+			<diffuse>.5 .5 .5</diffuse>
+			<specular>.3 .3 .3</specular>
+			<shininess>10</shininess>
+			<!--the following four will be relevant in ray tracer -->
+			<absorption>0.5 </absorption>
+			<reflection>0.1</reflection>
+			<transparency>0.4</transparency>
+			<refractive>1.2</refractive>
+		</material>
+		
+		<!-- light added to object node -->
+		<light>
+			<ambient>.2 0.2 0.2</ambient>
+			<diffuse>.5 .5 0.5</diffuse>
+			<specular>0.8 0.8 0.8</specular>
+			<position>50 50 50 </position>
+			<direction>0 0 0 </direction>
+			<spotangle>90</spotangle>
+			<spotdirection>1 0 0 </spotdirection> 
+		</light>
+
 	
 			<transform name="car-transform">
 			<set>
 			</set>
-			<group BB="true" name="car">
+			<group name="car">
 			
 				<group>
 					<transform name="floor">
 						<set>
 							<scale>30 2 20</scale>
 						</set>
-						<object BB="true" instanceof="box">
+						<object instanceof="box">
 								<material>
 									<color>0 0 1</color>
+									<ambient>.7 .2 .5</ambient>
+									<diffuse>.4 .4 .4</diffuse>
+									<specular>.3 .3 .3</specular>
+									<shininess>100</shininess>
+									<!--the following four will be relevant in ray tracer -->
+									<absorption>0.3 </absorption>
+									<reflection>0.1</reflection>
+									<transparency>0.4</transparency>
+									<refractive>1.2</refractive>
 								</material>		
 						</object>			
 					</transform>	
@@ -43,7 +76,7 @@
 										<set>
 											<scale>1 8 6</scale>
 										</set>
-										<object BB="true" instanceof="box">
+										<object instanceof="box">
 												<material>
 													<color>1 0 0</color>
 												</material>		

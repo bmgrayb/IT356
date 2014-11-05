@@ -1,0 +1,388 @@
+<scene>
+	<instance name="sphere" path="models/sphere" />
+	<instance name="box" path="models/box" />
+	<instance name="cylinder" path="models/cylinder" />
+	<instance name="cone" path="models/cone" />	
+	
+	<!-- FIRST RIDE -->
+	<transform>
+		<set>
+			<scale> 72 72 72 </scale> <!-- humanoid of height 72 -->
+			<translate> 0 -25 0 </translate>
+		</set>
+		
+		<group name="john">
+			<transform name="ride" > <!-- scale humanoid down to height 1 so that height can be adjusted easily above -->
+				<set>
+					<scale> 0.0125 0.0125 0.0125</scale>
+				</set>
+				
+			
+				<group>
+				<group >
+				<transform>
+					<set>
+							<rotate> 90 0 0 1 </rotate>
+							<translate>21 0 0 </translate>
+							<scale> 2 2 2 </scale>
+					</set>
+					<group >
+					<transform name="chair">
+					<set>
+					</set>
+					<group>
+					<transform name="seat">
+						<set>
+							<scale> 2 2 2 </scale>
+							<translate>0 0 0 </translate>
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					<transform name= "back">
+						<set>
+						
+							<scale> 2 2 0 </scale>
+							<translate>2 0 -1 </translate>
+							
+						</set>
+					<object instanceof="box">
+								<material>
+									<ambient>.1 .2 .3</ambient>
+									<diffuse>.5 .5 .5</diffuse>
+									<specular>.3 .3 .3</specular>
+									<shininess>10</shininess>
+									<!--the following four will be relevant in ray tracer -->
+									<absorption>0.5 </absorption>
+									<reflection>0.1</reflection>
+									<transparency>0.4</transparency>
+									<refractive>1.2</refractive>
+								</material>
+					</object>
+					</transform>
+					</group>
+				</transform>
+				</group>
+				</transform>
+				</group>
+				<group>
+				<transform >
+					<set>
+							<rotate> 90 0 0 1 </rotate>
+							<translate>0 0 -21 </translate>
+							<scale> 2 2 2 </scale>
+					</set>
+					<group>
+					<transform name="chair2">
+					<set>
+					</set>
+					<group>
+					<transform name="seat">
+						<set>
+							<scale> 2 2 2 </scale>
+							<translate>0 0 0 </translate>
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					<transform name= "back">
+						<set>
+						
+							<scale> 2 2 0 </scale>
+							<translate>2 0 -1 </translate>
+							
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					</group>
+				</transform>
+				</group>
+				</transform>
+				</group>
+				<group >
+				<transform >
+					<set>
+							<rotate> 90 0 0 1 </rotate>
+							<translate>0 0 21 </translate>
+							<scale> 2 2 2 </scale>
+					</set>
+					<group>
+					<transform name="chair3">
+					<set>
+					</set>
+					<group>
+					<transform name="seat">
+						<set>
+							<scale> 2 2 2 </scale>
+							<translate>0 0 0 </translate>
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					<transform name= "back">
+						<set>
+						
+							<scale> 2 2 0 </scale>
+							<translate>2 0 -1 </translate>
+							
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					</group>
+					</transform>
+					</group>
+				</transform>
+				</group>
+				<group >
+				<transform>
+					<set>
+							<rotate> 90 0 0 1 </rotate>
+							<translate>-21 0 0 </translate>
+							<scale> 2 2 2 </scale>
+					</set>
+					<group>
+					<transform name="chair4">
+					<set>
+					</set>
+					<group>
+					<transform name="seat">
+						<set>
+							<scale> 2 2 2 </scale>
+							<translate>0 0 0 </translate>
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					<transform name= "back" >
+						<set>
+						
+							<scale> 2 2 0 </scale>
+							<translate>2 0 -1 </translate>
+							
+						</set>
+					<object instanceof="box">
+								<material>
+										<color>1 1 0</color>
+								</material>
+					</object>
+					</transform>
+					</group>
+				</transform>
+				</group>
+				</transform>
+				</group>
+				<group name = "base"  >
+					<transform name = "xbase">
+					<set>
+					<translate>0 -4.8 0</translate>
+					</set>
+					<group>
+					<group>
+						<transform>
+							<set>
+							<scale> 89 5 5 </scale>
+							</set>
+							<object instanceof="box">
+							<material>
+								<ambient>.1 .2 .3</ambient>
+								<diffuse>.5 .5 .5</diffuse>
+								<specular>.3 .3 .3</specular>
+								<shininess>100</shininess>
+								<!--the following four will be relevant in ray tracer -->
+								<absorption>0.5 </absorption>
+								<reflection>0.1</reflection>
+								<transparency>0.4</transparency>
+								<refractive>1.2</refractive>
+							</material>
+							</object>
+						</transform>
+					</group>
+					<group>
+					<transform name = "zbase">
+							<set>
+							<scale>50 5 89 </scale>
+							</set>
+							<object instanceof="box">
+							<material>
+								<ambient>.1 .2 .3</ambient>
+								<diffuse>.5 .5 .5</diffuse>
+								<specular>.3 .3 .3</specular>
+								<shininess>100</shininess>
+								<!--the following four will be relevant in ray tracer -->
+								<absorption>0.5 </absorption>
+								<reflection>0.1</reflection>
+								<transparency>0.4</transparency>
+								<refractive>1.2</refractive>
+							</material>
+							</object>
+						</transform>
+					</group>
+					
+				</group>
+				</transform>
+				</group>
+				</group>
+			</transform>
+			
+		
+		</group>
+	</transform>
+	
+	<!-- SECOND RIDE -->
+	<transform name="whole-ride">
+		<!-- transform for whole model -->
+		<set>
+			<scale>1 1 1</scale>
+		</set>
+	
+		<!-- light added to object node -->
+		<light>
+			<ambient>0.8 0.8 0.8</ambient>
+			<diffuse>0.8 0.8 0.8</diffuse>
+			<specular>0.8 0.8 0.8</specular>
+			<position>10 20 30 </position>
+			<direction>0 0 0 </direction>
+			<spotangle>90</spotangle>
+			<spotdirection>1 0 0 </spotdirection> 
+		</light>
+		
+			<transform name="car-transform">
+			<set>
+			</set>
+			<group name="car">
+			
+				<group>
+					<transform name="floor">
+						<set>
+							<scale>30 2 20</scale>
+						</set>
+						<object instanceof="box">
+								<material>
+									<ambient>.13 .19 .28</ambient>
+									<diffuse>.35 .59 .86</diffuse>
+									<specular>.35 .59 .86</specular>
+									<shininess>500</shininess>
+									
+									<absorption>0.3 </absorption>
+									<reflection>0.1</reflection>
+									<transparency>0.4</transparency>
+									<refractive>1.2</refractive>
+								</material>	
+								<!-- light added to object node -->
+								<light>
+									<ambient>0.8 0.8 0.8</ambient>
+									<diffuse>0.8 0.8 0.8</diffuse>
+									<specular>0.8 0.8 0.8</specular>
+									<position>0 -10 0 </position>
+									<direction>0 0 0 </direction>
+									<spotangle>90</spotangle>
+									<spotdirection>1 0 0 </spotdirection> 
+								</light>
+						</object>			
+					</transform>	
+				</group>
+				
+				<transform name="seat-transform">
+					<set>
+					</set>
+					<group name="seat-groups">
+				
+						<group name="frontRight">
+							<transform name="frontRightSeat">
+								<set>
+									<translate>5 8 5 </translate>
+								</set>
+								<group name="seat">
+									<transform name="back">
+										<set>
+											<scale>1 8 6</scale>
+										</set>
+										<object instanceof="box">
+												<material>
+													<color>1 0 0</color>
+												</material>		
+										</object>
+									</transform>
+									
+									<transform name="bottom">
+										<set>
+											<scale>5 1 6</scale>
+											<translate>3 -3.5 0</translate>
+										</set>
+										<object instanceof="box">
+												<material>
+													<color>1 0 0</color>
+												</material>		
+										</object>
+									</transform>
+									
+									<transform name="attachment">
+										<set>
+											<scale>2 3 2</scale>
+											<translate>3 -7 0</translate>
+										</set>
+										<object instanceof="cylinder">
+												<material>
+													<color>0 1 0</color>
+												</material>		
+										</object>
+									</transform>
+								</group>
+							</transform>
+						</group>
+						
+						
+						<group name="frontLeft">
+							<transform name="frontLeftSeat">
+								<set>
+									<translate>5 8 -5 </translate>
+								</set>
+								<group copyof="seat"/>
+							</transform>
+						</group>
+						
+						<group name="backLeft">
+							<transform name="backLeftSeat">
+								<set>
+									<translate>-10 8 -5 </translate>
+								</set>
+								<group copyof="seat"/>
+							</transform>
+						</group>
+						
+						<group name="backRight">
+							<transform name="backRightSeat">
+								<set>
+									<translate>-10 8 5 </translate>
+								</set>
+								<group copyof="seat"/>
+							</transform>
+						</group>
+					</group>
+				</transform>
+				
+			</group>
+		</transform>
+		
+	</transform>
+</scene>

@@ -68,7 +68,7 @@ void Light::setPosition(glm::vec3 pos)
 }
 void Light::setPosition(glm::vec4 pos)
 {
-	pos.w =0.0;
+	pos.w =1.0f;
     position = pos;
 
 }
