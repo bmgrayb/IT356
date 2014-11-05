@@ -17,6 +17,7 @@ protected:
     string name;
     Scenegraph *scenegraph;
 	bool bbDraw;
+	bool camera;
 	glm::vec3 minBounds,maxBounds;
 	vector<Light> lights;
 public:
@@ -26,6 +27,7 @@ public:
         scenegraph = graph;
         setName(name);
 		bbDraw = false;
+		camera = false;
     }
 
     virtual ~Node()
@@ -40,7 +42,16 @@ public:
 		return NULL;
 	}
 
+	virtual Node *getCameraNode(){
+		if(this->camera)
+			return this;
 
+		return NULL;
+	}
+
+	virtual glm::mat4 getCameraTransform(){
+		return glm::mat4(1.0);
+	};
 
     virtual void draw(stack<glm::mat4>& modelView)=0;
 	virtual void drawBB(stack<glm::mat4>& modelView)=0;
@@ -56,9 +67,17 @@ public:
         this->name = name;
     }
 
+	string getName(){
+		return this->name;
+	}
+
 	void setBBDraw(bool d)
 	{
 		bbDraw = d;
+	}
+
+	void setCamera(bool c){
+		camera = c;
 	}
 
 	glm::vec3 getMinBounds()

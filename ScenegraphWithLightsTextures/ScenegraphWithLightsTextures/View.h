@@ -49,11 +49,15 @@ public:
     //the delegation functions called from the glut functions in main.cpp
     void resize(int w,int h);
     void initialize();
-    void draw();
+    void draw(bool stationary);
     void openFile(string filename);
 
     void mousepress(int x,int y);
     void mousemove(int x,int y);
+	void zoomIn();
+	void zoomOut();
+	void moveLeft();
+	void moveRight();
 
     //helper functions to probe the supported (latest) version of OpenGL and GLSL.
     void getOpenGLVersion(int *major,int *minor);
@@ -81,8 +85,13 @@ private:
 
     glm::mat4 trackballTransform;
 
+	//transform for the arrow keys
+	glm::mat4 arrowTransform;
+
 	//time for the animation
 	double time;
+
+	int x,y,z;
 
     glm::vec2 prev_mouse;
 	GLuint program;

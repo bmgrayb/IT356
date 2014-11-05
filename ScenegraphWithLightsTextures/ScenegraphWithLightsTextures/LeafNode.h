@@ -120,6 +120,10 @@ public:
 		}
 	}
 
+	virtual glm::mat4 getCameraTransform(){
+		return glm::mat4(1.0);
+	}
+
 protected:
 	Object *instanceOf;
 	Material material;

@@ -62,6 +62,18 @@ public:
 
 		return NULL;
 	}
+	
+	virtual Node *getCameraNode(){
+		if (Node::getCameraNode()!=NULL)
+			return Node::getCameraNode();
+
+		if (child!=NULL)
+		{
+			return child->getCameraNode();
+		}
+
+		return NULL;
+	}
 
 	void setChild(Node *child)
 	{
@@ -182,6 +194,10 @@ public:
 			vLights.push_back(l);
 		}
 		modelView.pop();
+	}
+
+	virtual glm::mat4 getCameraTransform(){
+		return getAnimationTransform()*getTransform();
 	}
 
 protected:

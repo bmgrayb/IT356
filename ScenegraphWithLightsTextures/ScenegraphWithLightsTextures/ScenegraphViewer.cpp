@@ -35,6 +35,7 @@ int frames;
 double frame_rate;
 bool mousePressed;
 int mouseX,mouseY;
+bool stationary = true;
 
 string filename = "xml/combinedRide.xml";
 
@@ -111,6 +112,24 @@ void processEvent(sf::Event event,sf::RenderWindow& window)
 		case sf::Keyboard::R:
 			v.openFile(filename);
 			break;
+		case sf::Keyboard::Num1:
+			stationary = true;
+			break;
+		case sf::Keyboard::Num2:
+			stationary = false;
+			break;
+		case sf::Keyboard::Up:
+			v.zoomIn();
+			break;
+		case sf::Keyboard::Down:
+			v.zoomOut();
+			break;
+		case sf::Keyboard::Left:
+			v.moveLeft();
+			break;
+		case sf::Keyboard::Right:
+			v.moveRight();
+			break;
 		}
 		break;
 	case sf::Event::Resized:
@@ -183,7 +202,7 @@ void display(sf::RenderWindow *window)
 	glClearColor(0,0,0,0);
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT); //this command actually clears the window.
 	glEnable(GL_DEPTH_TEST);
-	v.draw(); //simply delegate to our view class that has all the data and does all the rendering
+	v.draw(stationary); //simply delegate to our view class that has all the data and does all the rendering
 
 	if (frames>500)
 	{

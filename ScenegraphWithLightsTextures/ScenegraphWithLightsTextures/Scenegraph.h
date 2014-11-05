@@ -31,7 +31,7 @@ public:
     ~Scenegraph();
     void makeScenegraph(Node *root);
     void initShaderProgram(GLint shaderProgram);
-    void draw(stack<glm::mat4>& modelView);
+    void draw(stack<glm::mat4>& modelView, bool stationary);
 
 	void addInstance(Object *in)
 	{

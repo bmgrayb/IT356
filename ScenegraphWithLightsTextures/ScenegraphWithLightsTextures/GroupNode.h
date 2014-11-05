@@ -63,6 +63,24 @@ public:
 		return answer;
 	}
 
+	virtual Node* getCameraNode()
+	{
+		if (Node::getCameraNode()!=NULL)
+		{
+			return Node::getCameraNode();
+		}
+
+		int i=0;
+		Node *answer = NULL;
+
+		while ((i<children.size()) && (answer == NULL))
+		{
+			answer = children[i]->getCameraNode();
+			i++;
+		}
+		return answer;
+	}
+
     virtual void draw(stack<glm::mat4> &modelView)
     {
         for (int i=0;i<children.size();i++)
@@ -141,6 +159,10 @@ public:
 			children[j]->returnLights(vLights,modelView);
 		}
         
+	}
+
+	virtual glm::mat4 getCameraTransform(){
+		return glm::mat4(1.0);
 	}
 };
 

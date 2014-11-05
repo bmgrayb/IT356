@@ -19,7 +19,11 @@ using namespace std;
 View::View()
 {
     trackballTransform = glm::mat4(1.0);
+	arrowTransform = glm::mat4(1.0);
 	time = 0.0;
+	x = 10;
+	y = 20;
+	z = 100;
 }
 
 View::~View()
@@ -81,7 +85,7 @@ void View::initialize()
     
 }
 
-void View::draw()
+void View::draw(bool stationary)
 {
 	time += 0.001;
 	sgraph.animate(time);
@@ -112,12 +116,28 @@ void View::draw()
      */
 	a = glGetError();
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-    sgraph.draw(modelview);
+    sgraph.draw(modelview, stationary);
 	a = glGetError();
     glFinish();
 	a = glGetError();
 	glUseProgram(0);
     modelview.pop();
+}
+
+void View::zoomIn(){
+	
+}
+
+void View::zoomOut(){
+	
+}
+
+void View::moveLeft(){
+
+}
+
+void View::moveRight(){
+
 }
 
 void View::mousepress(int x, int y)

@@ -54,19 +54,33 @@ void Scenegraph::initShaderProgram(GLint shaderProgram)
 
 }
 
-void Scenegraph::draw(stack<glm::mat4>& modelView)
+void Scenegraph::draw(stack<glm::mat4>& modelView, bool stationary)
 {
+	
     if (root!=NULL)
     {
+		//if stationary is false, we need to figure out how to get the transforms of the node it is attached to, then multiply modelView by that
+		//i wrote a function that returns a the node that was set to have the camera
+		if(!stationary){
+			//modelView.push(glm::mat4(1.0));
+			//modelView.top() = modelView.top()*glm::lookAt(glm::vec3(0,20,50),glm::vec3(0,0,0),glm::vec3(0,1,0));
+			
+			//this is the node that has the second camera attached to it
+			Node *n = root->getCameraNode();
+			modelView.top() = modelView.top()*glm::lookAt(glm::vec3(-1,0,0),glm::vec3(0,0,-1),glm::vec3(0,1,0)) * glm::inverse(n->getCameraTransform());
+			//this is code from camera views project, try and do something similar?
+			//modelview.top() = modelview.top() * glm::lookAt(glm::vec3(-1,0,0),glm::vec3(-2,0,0),glm::vec3(0,1,0)) * glm::inverse(animation_transform[7] * objectsList[7]->getTransform()) ;
+		}
+
 		lights.clear();
 		lightlocation.clear();
 		root->returnLights(lights,modelView);
 		for(Light l: lights){
 			//l.setPosition(modelView.top() * l.getPosition());
 		}
-	lightlocation.resize(lights.size());
-	for( int i=0; i<lightlocation.size();i++){
-	stringstream name;
+		lightlocation.resize(lights.size());
+		for( int i=0; i<lightlocation.size();i++){
+		stringstream name;
 
         name << "light[" << i << "].ambient";
 
@@ -107,10 +121,10 @@ void Scenegraph::draw(stack<glm::mat4>& modelView)
         glUniform3fv(lightlocation[i].diffuseLocation,1,glm::value_ptr(lights[i].getDiffuse()));
         glUniform3fv(lightlocation[i].specularLocation,1,glm::value_ptr(lights[i].getSpecular()));
         glUniform4fv(lightlocation[i].positionLocation,1,glm::value_ptr(lights[i].getPosition()));
-		cout << "light location x" << lights[i].getPosition().x << endl;
+		/*cout << "light location x" << lights[i].getPosition().x << endl;
 		cout << "light location y" << lights[i].getPosition().y << endl;
 		cout << "light location z" << lights[i].getPosition().z << endl;
-		
+		*/
     }
 
 		
@@ -122,6 +136,10 @@ void Scenegraph::draw(stack<glm::mat4>& modelView)
 		root->updateBB();
 		root->drawBB(modelView);
 	}
+
+	/*
+	if(!stationary)
+		modelView.pop();*/
 }
 
 void Scenegraph::animate(float time)
@@ -152,9 +170,9 @@ void Scenegraph::animate(float time)
 	temp2 = glm::translate(glm::mat4(1),glm::vec3(0,0,abs(cos(time*3))*12));
 	temp3 = glm::translate(glm::mat4(1),glm::vec3(0,0,-1*abs(cos(time*3))*12));
 	temp4 = glm::translate(glm::mat4(1),glm::vec3(0,-1*abs(cos(time*3))*12,0));
-	//temp5 *= glm::rotate(glm::mat4(1.0),glm::radians(time*50),glm::vec3(0,1,0));
-	//temp5 *= glm::rotate(glm::mat4(1.0),glm::radians(sin(time*5.0f)*30),glm::vec3(0,0,1));
-	//temp5 *= glm::rotate(glm::mat4(1.0),glm::radians(cos(time*5.0f)*30),glm::vec3(1,0,0));
+	temp5 *= glm::rotate(glm::mat4(1.0),glm::radians(time*50),glm::vec3(0,1,0));
+	temp5 *= glm::rotate(glm::mat4(1.0),glm::radians(sin(time*5.0f)*30),glm::vec3(0,0,1));
+	temp5 *= glm::rotate(glm::mat4(1.0),glm::radians(cos(time*5.0f)*30),glm::vec3(1,0,0));
 	//temp5 *= glm::rotate(glm::mat4(1.0),glm::radians(40.0f),glm::vec3(1,0,0));
 	
 	temp *= glm::rotate(glm::mat4(1.0),glm::radians(time*500),glm::vec3(1,0,0));

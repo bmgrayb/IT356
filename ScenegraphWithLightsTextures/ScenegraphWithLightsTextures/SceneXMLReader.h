@@ -17,6 +17,8 @@ using namespace std;
 #include <glm/gtc/matrix_transform.hpp>
 #include "Texture.h"
 
+int camCount = 0;
+
 class SceneXMLReader
 {
 public:
@@ -52,6 +54,7 @@ public:
 
 		Node * root = NULL;
 		bool bbDraw = false;
+		bool camera = false;
 
 		int level = 0;
 
@@ -77,6 +80,17 @@ public:
 			}
 		}
 
+		if(root_node->first_attribute("camera")!=NULL){
+			string cam = root_node->first_attribute("camera")->value();
+			if(cam=="true"){
+				camCount++;
+				if(camCount < 2){
+					camera = true;
+					cout << "camera added in root " << camCount << endl;
+				}
+			}
+		}
+
 		root = createGroupTree(root_node->first_node(NULL),name,&sgraph,level);
 
 
@@ -84,7 +98,8 @@ public:
 		if (root ==  NULL)
 			return false;
 		root->setBBDraw(bbDraw);
-		
+		root->setCamera(camera);
+
 		sgraph.makeScenegraph(root);
 
 		return true;
@@ -106,6 +121,7 @@ private:
 			if (strcmp(node->name(),"group")==0)
 			{
 				bool bbDraw = false;
+				bool camera = false;
 
 				if (node->first_attribute("name")!=NULL)
 				{
@@ -127,7 +143,17 @@ private:
 					}
 				}
 				
-				
+				if(node->first_attribute("camera")!=NULL){
+					string cam = node->first_attribute("camera")->value();
+					if(cam=="true"){
+						camCount++;
+						if(camCount < 2){
+							camera = true;
+							cout << "camera added in root " << camCount << endl;
+						}
+					}
+				}
+
 				Node *child;
 
 				if (node->first_attribute("copyof")!=NULL)
@@ -153,6 +179,7 @@ private:
 				if (child!=NULL)
 				{
 					child->setBBDraw(bbDraw);	
+					child->setCamera(camera);
 					
 					((GroupNode *)n)->addChild(child);
 				}
@@ -164,6 +191,8 @@ private:
 			else if (strcmp(node->name(),"transform")==0)
 			{
 				bool bbDraw = false;
+				bool camera = false;
+
 				if (node->first_attribute("name")!=NULL)
 				{
 					name = node->first_attribute("name")->value();
@@ -184,10 +213,22 @@ private:
 					}
 				}
 
+				if(node->first_attribute("camera")!=NULL){
+					string cam = node->first_attribute("camera")->value();
+					if(cam=="true"){
+						camCount++;
+						if(camCount < 2){
+							camera = true;
+							cout << "camera added in root " << camCount << endl;
+						}
+					}
+				}
+				
 				Node * child = createTransformTree(node->first_node(NULL),name,sgraph,level+1);
 				if (child!=NULL)
 				{
 					child->setBBDraw(bbDraw);
+					child->setCamera(camera);
 					((GroupNode *)n)->addChild(child);
 				}
 				else
@@ -292,6 +333,7 @@ private:
 	{
 		string name,instanceOf;
 		bool bbDraw = false;
+		bool camera = false;
 		Texture *tex=NULL;
 
 		if (node->first_attribute("instanceof")!=NULL)
@@ -320,6 +362,18 @@ private:
 				bbDraw = true;
 			}
 		}
+
+		if(node->first_attribute("camera")!=NULL){
+			string cam = node->first_attribute("camera")->value();
+			if(cam=="true"){
+				camCount++; 
+				if(camCount < 2){
+					camera = true;
+					cout << "camera added in root " << camCount << endl;
+				}
+			}
+
+		}
 		
 		if (node->first_attribute("texture")!=NULL)
 		{
@@ -334,6 +388,7 @@ private:
 
 		Node *child = new LeafNode(obj,sgraph,name);
 		child->setBBDraw(bbDraw);
+		child->setCamera(camera);
 		//SET TEXTURE
 		if (tex!=NULL)
 			((LeafNode *)child)->setTexture(tex);
@@ -514,6 +569,7 @@ private:
 				if (strcmp(start->name(),"group")==0)
 				{
 					bool bbDraw = false;
+					bool camera = false;
 					if (start->first_attribute("copyof")!=NULL)
 					{
 						string copyof = start->first_attribute("copyof")->value();
@@ -539,9 +595,22 @@ private:
 						}
 					}
 
+					if(start->first_attribute("camera")!=NULL){
+						string cam = start->first_attribute("camera")->value();
+						if(cam=="true"){
+							camCount++;
+							if(camCount < 2){
+								camera = true;
+								cout << "camera added in root " << camCount << endl;
+							}
+						}
+
+					}
+
 					if (child!=NULL)
 					{
 						child->setBBDraw(bbDraw);
+						child->setCamera(camera);
 					}
 				}
 				else if (strcmp(start->name(),"object")==0)
@@ -639,5 +708,6 @@ private:
 
 	private:
 		map<string,Node *> nodeMap;
+
 };
 #endif
