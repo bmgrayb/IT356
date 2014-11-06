@@ -31,7 +31,7 @@ public:
     ~Scenegraph();
     void makeScenegraph(Node *root);
     void initShaderProgram(GLint shaderProgram);
-    void draw(stack<glm::mat4>& modelView, bool stationary);
+    void draw(stack<glm::mat4>& modelView, bool stationary, glm::mat4 transforms);
 
 	void addInstance(Object *in)
 	{
@@ -41,7 +41,8 @@ public:
 	void addTexture(Texture *tex)
 	{
 		cout << "Texture " << tex->getName() << " added" << endl;
-		textures.push_back(tex);
+		//textures.push_back(tex);
+		textureMap[tex->getName()] = tex;
 	}
 
 	void animate(float t);
@@ -64,19 +65,21 @@ public:
 		}
 	}
 
-/*	Texture *getTexture(string name)
+	Texture *getTexture(string name)
 	{
 		cout << "Texture " << name << " looked up" << endl;
-	}*/
+		return textureMap[name];
+	}
 
 private:
     Node *root;
-	vector<Texture *> textures;
+	//vector<Texture *> textures;
+	std::map<string, Texture *> textureMap;
 	vector<Object *> instances;
 	vector<Light> lights;
 	vector<LightLocation> lightlocation;
 	GLint objectColorLocation;
-	GLint projectionLocation,modelviewLocation,normalMatrixLocation;
+	GLint projectionLocation,modelviewLocation,normalMatrixLocation,textureMatrixLocation, textureLocation;
     GLint numLightsLocation;
     GLint mat_ambientLocation,mat_diffuseLocation,mat_specularLocation,mat_shininessLocation;
 	GLint program;

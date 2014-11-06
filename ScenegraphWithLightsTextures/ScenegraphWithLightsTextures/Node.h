@@ -104,6 +104,16 @@ public:
 		return lights;
 	}
 
+	Node * getParent(){
+		if(this->parent != NULL)
+			return this->parent;
+
+		return NULL;
+	}
+
+	virtual glm::mat4 getTransform(){
+		return glm::mat4(1.0);
+	}
 
 protected:
 	Node *parent;

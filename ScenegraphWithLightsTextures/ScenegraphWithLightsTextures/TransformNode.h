@@ -173,7 +173,7 @@ public:
         animation_transform = mat;
     }
 
-    glm::mat4 getTransform()
+    virtual glm::mat4 getTransform()
     {
         return transform;
     }
@@ -197,7 +197,7 @@ public:
 	}
 
 	virtual glm::mat4 getCameraTransform(){
-		return getAnimationTransform()*getTransform();
+		return getAnimationTransform() * getTransform();
 	}
 
 protected:

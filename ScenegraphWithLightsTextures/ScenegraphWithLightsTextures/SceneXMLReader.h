@@ -379,7 +379,11 @@ private:
 		{
 			name = node->first_attribute("texture")->value();
 			//attach texture
-		//	tex = sgraph->getTexture(name);
+			tex = sgraph->getTexture(name);
+		}
+		else{
+			name = "white";
+			tex = sgraph->getTexture(name);
 		}
 
 		Object *obj = sgraph->getInstance(instanceOf);

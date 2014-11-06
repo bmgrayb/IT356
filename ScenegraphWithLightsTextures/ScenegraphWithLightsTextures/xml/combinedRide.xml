@@ -3,6 +3,31 @@
 	<instance name="box" path="models/box" />
 	<instance name="cylinder" path="models/cylinder" />
 	<instance name="cone" path="models/cone" />	
+	<instance name="inverted" path="models/inverted-box" />
+	<image name="checkerboard" path="checkerboard.png" />
+	<image name="black" path="black.png" />
+	<image name="snake" path="redSnake.png" />
+	<image name="stars" path="stars.png" />
+	
+	<transform>
+	<set>
+		<scale>1000 1000 1000</scale>
+	</set>
+	
+		<object instanceof="inverted">
+			<material>
+				<ambient>.1 .2 .3</ambient>
+				<diffuse>.5 .5 .5</diffuse>
+				<specular>.3 .3 .3</specular>
+				<shininess>10</shininess>
+				<!--the following four will be relevant in ray tracer -->
+				<absorption>0.5 </absorption>
+				<reflection>0.1</reflection>
+				<transparency>0.4</transparency>
+				<refractive>1.2</refractive>
+			</material>
+		</object>
+	</transform>
 	
 	<!-- FIRST RIDE -->
 	<transform>
@@ -222,7 +247,7 @@
 							<set>
 							<scale>50 5 89 </scale>
 							</set>
-							<object instanceof="box" camera="true">
+							<object instanceof="box" texture="checkerboard">
 							<material>
 								<ambient>.1 .2 .3</ambient>
 								<diffuse>.5 .5 .5</diffuse>
@@ -276,18 +301,19 @@
 						<set>
 							<scale>30 2 20</scale>
 						</set>
-						<object instanceof="box">
+						<object instanceof="box" texture="snake" camera="true">
 								<material>
-									<ambient>.13 .19 .28</ambient>
+									<!--<ambient>.13 .19 .28</ambient>
 									<diffuse>.35 .59 .86</diffuse>
 									<specular>.35 .59 .86</specular>
 									<shininess>500</shininess>
-									
+									-->
+									<color>1 1 1 </color>
 									<absorption>0.3 </absorption>
 									<reflection>0.1</reflection>
 									<transparency>0.4</transparency>
 									<refractive>1.2</refractive>
-								</material>	
+								</material>
 								<!-- light added to object node -->
 								<light>
 									<ambient>0.8 0.8 0.8</ambient>

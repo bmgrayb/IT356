@@ -20,6 +20,7 @@ public:
 		material.setDiffuse(1.0f,0.6f,0.6f);
 		material.setSpecular(0.2f,0.1f,0.1f);
 		material.setShininess(1);
+		tex = NULL;
 	}
 
 	~LeafNode(void)
@@ -42,7 +43,7 @@ public:
 			 //get the color
            
             //set the color for all vertices to be drawn for this object
-     //       glUniform3fv(scenegraph->objectColorLocation,1,glm::value_ptr(color));
+			//glUniform3fv(scenegraph->objectColorLocation,1,glm::value_ptr(color));
 			a = glGetError();
 
 			glUniformMatrix4fv(scenegraph->modelviewLocation,1,GL_FALSE,glm::value_ptr(modelView.top()));
@@ -52,6 +53,14 @@ public:
 			glUniform3fv(scenegraph->mat_specularLocation,1,glm::value_ptr(material.getSpecular()));
 			glUniform1f(scenegraph->mat_shininessLocation,material.getShininess());
 			
+			if(tex != NULL){
+			glUniformMatrix4fv(scenegraph->textureMatrixLocation, 1, GL_FALSE, glm::value_ptr(glm::mat4(1.0)));
+			glEnable(GL_TEXTURE_2D);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, tex->getTextureID());
+			glUniform1i(scenegraph->textureLocation, 0);
+			}
+
 			a = glGetError();
 			instanceOf->draw();        
 			a = glGetError();
@@ -105,7 +114,13 @@ public:
 	void setTexture(Texture *tex)
 	{
 		cout << "Texture set to " << tex->getName() << endl;
+		this->tex = tex;
 	}
+
+	Texture * getTexture(){
+		return tex;
+	}
+
 	void addLight(const Light &l)
 	{
 		//cout << "Light added in node " << name << endl;
@@ -124,8 +139,12 @@ public:
 		return glm::mat4(1.0);
 	}
 
+	virtual glm::mat4 getTransform(){
+		return glm::mat4(1.0);
+	}
 protected:
 	Object *instanceOf;
 	Material material;
+	Texture *tex;
 };
 #endif

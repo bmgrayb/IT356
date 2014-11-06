@@ -164,6 +164,10 @@ public:
 	virtual glm::mat4 getCameraTransform(){
 		return glm::mat4(1.0);
 	}
+
+	virtual glm::mat4 getTransform(){
+		return glm::mat4(1.0);
+	}
 };
 
 #endif // GROUP_H

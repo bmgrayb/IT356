@@ -16,14 +16,16 @@ using namespace std;
 
 #include "SceneXMLReader.h"
 
+#define PI 3.14159265
+
 View::View()
 {
     trackballTransform = glm::mat4(1.0);
 	arrowTransform = glm::mat4(1.0);
 	time = 0.0;
-	x = 10;
-	y = 20;
-	z = 100;
+	scale = 1.0;
+	angle = 0.0;
+
 }
 
 View::~View()
@@ -36,7 +38,7 @@ void View::resize(int w, int h)
     //record the new dimensions
     WINDOW_WIDTH = w;
     WINDOW_HEIGHT = h;
-
+	window = glm::vec2(WINDOW_WIDTH, WINDOW_HEIGHT);
     /*
      * This program uses orthographic projection. The corresponding matrix for this projection is provided by the glm function below.
      *The last two parameters are for the near and far planes.
@@ -48,7 +50,7 @@ void View::resize(int w, int h)
    
     while (!proj.empty())
         proj.pop();
-
+	//updateProjection();
 	//proj.push(glm::ortho(-200.0f,200.0f,-200.0f*WINDOW_HEIGHT/WINDOW_WIDTH,200.0f*WINDOW_HEIGHT/WINDOW_WIDTH,0.1f,10000.0f));
     proj.push(glm::perspective(120.0f*3.14159f/180,(float)WINDOW_WIDTH/WINDOW_HEIGHT,0.1f,10000.0f));
 }
@@ -81,7 +83,13 @@ void View::initialize()
 	projectionLocation = glGetUniformLocation(program,"projection");
 
 	sgraph.initShaderProgram(program);
-	
+
+	Texture *tex = new Texture();
+	string path = "white.png";
+	tex->createImage(path);
+	string name = "white";
+	tex->setName(name);
+	sgraph.addTexture(tex);
     
 }
 
@@ -100,7 +108,8 @@ void View::draw(bool stationary)
 	GLuint a;
 
 	modelview.push(glm::mat4(1.0));
-	modelview.top() = modelview.top() * glm::lookAt(glm::vec3(10,20,100),glm::vec3(0,0,0),glm::vec3(0,1,0)) * trackballTransform;
+	transform = trackballTransform * arrowTransform;
+	modelview.top() = modelview.top() * glm::lookAt(glm::vec3(10,20,100),glm::vec3(0,0,0),glm::vec3(0,1,0)) * trackballTransform * arrowTransform;
 
 	glUniformMatrix4fv(projectionLocation,1,GL_FALSE,glm::value_ptr(proj.top()));
 	/*
@@ -116,7 +125,7 @@ void View::draw(bool stationary)
      */
 	a = glGetError();
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-    sgraph.draw(modelview, stationary);
+    sgraph.draw(modelview, stationary, transform);
 	a = glGetError();
     glFinish();
 	a = glGetError();
@@ -125,19 +134,35 @@ void View::draw(bool stationary)
 }
 
 void View::zoomIn(){
-	
+	scale = 0.95 *scale;
+	updateProjection();
 }
 
 void View::zoomOut(){
-	
+	scale = 9*scale/8;
+	updateProjection();
 }
 
 void View::moveLeft(){
-
+	angle += 0.01;
+	arrowTransform = glm::rotate(glm::mat4(1.0),glm::radians((float)angle), glm::vec3(0,1,0)) * arrowTransform;
 }
 
 void View::moveRight(){
+	angle -= 0.01;
+	arrowTransform =  glm::rotate(glm::mat4(1.0),glm::radians((float)angle), glm::vec3(0,1,0)) * arrowTransform;
+}
 
+void View::updateProjection(){
+
+	while (!proj.empty())
+        proj.pop();	
+
+	if(WINDOW_WIDTH > WINDOW_HEIGHT)
+		proj.push(glm::perspective((float)scale*120.0f*3.14159f/180,(float)-scale*WINDOW_WIDTH/WINDOW_HEIGHT,(float)scale*0.1f,(float)-scale*10000.0f));
+	else
+		proj.push(glm::perspective((float)scale*120.0f*3.14159f/180,(float)-scale*WINDOW_HEIGHT/WINDOW_WIDTH,(float)scale*0.1f,(float)-scale*10000.0f));
+	
 }
 
 void View::mousepress(int x, int y)

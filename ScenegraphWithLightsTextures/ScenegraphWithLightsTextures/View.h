@@ -90,8 +90,13 @@ private:
 
 	//time for the animation
 	double time;
+	
+	glm::vec2 window;
+	double scale;
+	double angle;
+	glm::mat4 transform;
 
-	int x,y,z;
+	void updateProjection();
 
     glm::vec2 prev_mouse;
 	GLuint program;
