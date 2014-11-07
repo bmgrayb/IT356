@@ -33,6 +33,12 @@ View::~View()
     
 }
 
+void View::setCamTransform(glm::mat4 input){
+	camTransform = input;
+}
+void View::resetTrackBall(){
+	trackballTransform = glm::mat4(1);
+}
 void View::resize(int w, int h)
 {
     //record the new dimensions
@@ -90,6 +96,7 @@ void View::initialize()
 	string name = "white";
 	tex->setName(name);
 	sgraph.addTexture(tex);
+	camTransform= glm::mat4(1);
     
 }
 
@@ -108,8 +115,8 @@ void View::draw(bool stationary)
 	GLuint a;
 
 	modelview.push(glm::mat4(1.0));
-	transform = trackballTransform * arrowTransform;
-	modelview.top() = modelview.top() * glm::lookAt(glm::vec3(10,20,100),glm::vec3(0,0,0),glm::vec3(0,1,0)) * trackballTransform * arrowTransform;
+	transform = trackballTransform;
+	modelview.top() = modelview.top() *camTransform* glm::lookAt(glm::vec3(10,20,100),glm::vec3(0,0,0),glm::vec3(0,1,0)) * trackballTransform ;
 
 	glUniformMatrix4fv(projectionLocation,1,GL_FALSE,glm::value_ptr(proj.top()));
 	/*
@@ -125,7 +132,7 @@ void View::draw(bool stationary)
      */
 	a = glGetError();
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-    sgraph.draw(modelview, stationary, transform);
+	sgraph.draw(modelview, stationary, camTransform,trackballTransform);
 	a = glGetError();
     glFinish();
 	a = glGetError();
@@ -134,23 +141,19 @@ void View::draw(bool stationary)
 }
 
 void View::zoomIn(){
-	scale = 0.95 *scale;
-	updateProjection();
+camTransform = glm::translate(glm::mat4(1),glm::vec3(0,0,2)) *camTransform;
 }
 
 void View::zoomOut(){
-	scale = 9*scale/8;
-	updateProjection();
+	camTransform = glm::translate(glm::mat4(1),glm::vec3(0,0,-2)) *camTransform;
 }
 
 void View::moveLeft(){
-	angle += 0.01;
-	arrowTransform = glm::rotate(glm::mat4(1.0),glm::radians((float)angle), glm::vec3(0,1,0)) * arrowTransform;
+	camTransform = glm::rotate(glm::mat4(1),glm::radians(-1.0f),glm::vec3(0,1,0)) *camTransform;
 }
 
 void View::moveRight(){
-	angle -= 0.01;
-	arrowTransform =  glm::rotate(glm::mat4(1.0),glm::radians((float)angle), glm::vec3(0,1,0)) * arrowTransform;
+camTransform = glm::rotate(glm::mat4(1),glm::radians(1.0f),glm::vec3(0,1,0)) *camTransform;
 }
 
 void View::updateProjection(){
@@ -159,9 +162,9 @@ void View::updateProjection(){
         proj.pop();	
 
 	if(WINDOW_WIDTH > WINDOW_HEIGHT)
-		proj.push(glm::perspective((float)scale*120.0f*3.14159f/180,(float)-scale*WINDOW_WIDTH/WINDOW_HEIGHT,(float)scale*0.1f,(float)-scale*10000.0f));
+		proj.push(glm::perspective((float)scale*(120.0f*3.14159f/180),(float)-scale*(WINDOW_WIDTH/WINDOW_HEIGHT),(float)scale*0.1f,(float)-scale*10000.0f));
 	else
-		proj.push(glm::perspective((float)scale*120.0f*3.14159f/180,(float)-scale*WINDOW_HEIGHT/WINDOW_WIDTH,(float)scale*0.1f,(float)-scale*10000.0f));
+		proj.push(glm::perspective((float)scale*(120.0f*3.14159f/180),(float)-scale*(WINDOW_HEIGHT/WINDOW_WIDTH),(float)scale*0.1f,(float)-scale*10000.0f));
 	
 }
 
@@ -169,7 +172,7 @@ void View::mousepress(int x, int y)
 {
     prev_mouse = glm::vec2(x,y);
 }
-
+\
 void View::mousemove(int x, int y)
 {
     int dx,dy;

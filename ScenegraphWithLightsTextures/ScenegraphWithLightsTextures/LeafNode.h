@@ -73,7 +73,7 @@ public:
 		{
 			GLuint a;
 			glm::mat4 bbTransform;
-
+			glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 			bbTransform = glm::translate(glm::mat4(1.0),0.5f*(minBounds+maxBounds)) * glm::scale(glm::mat4(1.0),maxBounds-minBounds);
 			glm::vec4 color = glm::vec4(1,1,1,1);
 			//set the color for all vertices to be drawn for this object
@@ -81,6 +81,7 @@ public:
 			glUniformMatrix4fv(scenegraph->modelviewLocation,1,GL_FALSE,glm::value_ptr(modelView.top() * bbTransform));
 			a = glGetError();
 			scenegraph->getInstance("box")->draw();        		
+			glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 		}
 	}
 	
@@ -136,6 +137,9 @@ public:
 	}
 
 	virtual glm::mat4 getCameraTransform(){
+		return glm::mat4(1.0);
+	}
+	virtual glm::mat4 getCameraTransform2(){
 		return glm::mat4(1.0);
 	}
 

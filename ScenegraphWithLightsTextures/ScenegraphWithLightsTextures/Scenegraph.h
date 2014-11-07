@@ -31,7 +31,7 @@ public:
     ~Scenegraph();
     void makeScenegraph(Node *root);
     void initShaderProgram(GLint shaderProgram);
-    void draw(stack<glm::mat4>& modelView, bool stationary, glm::mat4 transforms);
+    void draw(stack<glm::mat4>& modelView, bool stationary, glm::mat4 transforms,glm::mat4 trackball);
 
 	void addInstance(Object *in)
 	{
@@ -83,6 +83,7 @@ private:
     GLint numLightsLocation;
     GLint mat_ambientLocation,mat_diffuseLocation,mat_specularLocation,mat_shininessLocation;
 	GLint program;
+	glm::vec3 getScale(glm::mat4 camTransform);
 };
 
 #endif // SCENEGRAPH_H

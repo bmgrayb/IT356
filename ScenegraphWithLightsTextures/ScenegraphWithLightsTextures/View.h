@@ -45,13 +45,13 @@ class View
 public:
     View();
     ~View();
-
+	void resetTrackBall();
     //the delegation functions called from the glut functions in main.cpp
     void resize(int w,int h);
     void initialize();
     void draw(bool stationary);
     void openFile(string filename);
-
+	void setCamTransform(glm::mat4 input);
     void mousepress(int x,int y);
     void mousemove(int x,int y);
 	void zoomIn();
@@ -80,7 +80,7 @@ private:
 
     //the actual projection and modelview matrices
     stack<glm::mat4> proj,modelview;
-
+	void View::setZoom(int type);
     //the trackball transform
 
     glm::mat4 trackballTransform;
@@ -90,7 +90,7 @@ private:
 
 	//time for the animation
 	double time;
-	
+	glm::mat4 camTransform;
 	glm::vec2 window;
 	double scale;
 	double angle;

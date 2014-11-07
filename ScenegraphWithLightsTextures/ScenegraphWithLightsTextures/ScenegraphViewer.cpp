@@ -114,9 +114,13 @@ void processEvent(sf::Event event,sf::RenderWindow& window)
 			break;
 		case sf::Keyboard::Num1:
 			stationary = true;
+			v.setCamTransform(glm::mat4(1)); 
+			v.resetTrackBall();
 			break;
 		case sf::Keyboard::Num2:
 			stationary = false;
+			v.setCamTransform(glm::mat4(1)); 
+			v.resetTrackBall();
 			break;
 		case sf::Keyboard::Up:
 			v.zoomIn();

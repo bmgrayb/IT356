@@ -19,7 +19,7 @@
 				<ambient>.1 .2 .3</ambient>
 				<diffuse>.5 .5 .5</diffuse>
 				<specular>.3 .3 .3</specular>
-				<shininess>10</shininess>
+				<shininess>100</shininess>
 				<!--the following four will be relevant in ray tracer -->
 				<absorption>0.5 </absorption>
 				<reflection>0.1</reflection>
@@ -30,7 +30,7 @@
 	</transform>
 	
 	<!-- FIRST RIDE -->
-	<transform>
+	<transform  >
 		<set>
 			<scale> 72 72 72 </scale> <!-- humanoid of height 72 -->
 			<translate> 0 -25 0 </translate>
@@ -74,7 +74,7 @@
 							<translate>2 0 -1 </translate>
 							
 						</set>
-					<object instanceof="box">
+					<object instanceof="box" BB="true">
 								<material>
 									<ambient>.1 .2 .3</ambient>
 									<diffuse>.5 .5 .5</diffuse>
@@ -301,7 +301,7 @@
 						<set>
 							<scale>30 2 20</scale>
 						</set>
-						<object instanceof="box" texture="snake" camera="true">
+						<object instanceof="box" texture="snake" camera="true" BB = "true">
 								<material>
 									<!--<ambient>.13 .19 .28</ambient>
 									<diffuse>.35 .59 .86</diffuse>
